@@ -17,7 +17,7 @@ const promptUser = () => {
     {
       type: "input",
       name: "title",
-      message: "Please Enter your titlte (Required)",
+      message: "Please Enter your title (Required)",
     },
     {
       type: "input",
@@ -32,23 +32,50 @@ const promptUser = () => {
   ]);
 };
 
-const promptUserContributing = () => {
+const promptUserContributing = (contributorData) => {
   console.log(`
     =================
     Add a New Contributor
     =================
   `);
+
+  // If there's no 'contributor' array property, create one
+  if (!contributorData) {
+    contributorData = [];
+  }
+
   return inquirer
   .prompt([
     {
-      type: "confirm",
-      name: "contributing",
-      message: "Would you like to add a Contributor",
-      default: false,
+      type: "input",
+      name: "name",
+      message: "Please Enter your Github username (Required)",
+    },
+    {
+      type: "input",
+      name: "link",
+      message: "Please Enter your Github link (Required)",
+    },
+    {
 
+      type: "confirm",
+      name: "addContributor",
+      message: "Would you like to add another contributor?",
+      default: true,
+      
+    },
+  ])
+  .then((answers) => { 
+    // If the user chose to add another contributor, call the function again
+    if (answers.addContributor) {
+      return promptUserContributing(contributorData);
     }
-  ]);
+    // Otherwise, return the data
+    return contributorData;
+  })
+
 };
+
 
 promptUser().then((answers) => {
   console.log(answers.title);
@@ -64,15 +91,21 @@ promptUser().then((answers) => {
     console.log(answers.contributing);
     const contributing = generateContributing(answers.contributing);
     
-    console.log(answers.link);
-    const link = generateContributing(answers.link);
-    
+    if (answers.contributing) {
+      console.log(answers.contributing.name);
+      console.log(answers.contributing.link);
+    }
+    else
+    {
+      console.log("No Contributors");
+    }
 
-    const fileContent = title + description + installation + contributing + link;
+    const fileContent = title + description + installation + contributing;
+
     writeFile(fileContent);
   }).catch(err => {
     console.log(err);
   }).finally(() => {
-    console.log("Thank you for contributing");
+    console.log("Thank you for contributing, We have received your contribution! check out the ReadMe.md file for more information");
   });
 });

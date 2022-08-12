@@ -1,17 +1,12 @@
 
-        # o
+        # j
     
         ## Description
-        k
+        h
     
         ## Installation
-        j
+        g
     
         ## Contributing
-        true
-        undefined
-    
-        ## Contributing
-        undefined
         undefined
     
