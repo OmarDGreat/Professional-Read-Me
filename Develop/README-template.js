@@ -1,27 +1,52 @@
-const fs = require('fs');
+const fs = require("fs");
 
 //Generate Title
 
 const generateREADME = (aboutTitle) => {
-  
-    return `
+  return `
         # ${aboutTitle}
     `;
-  };
-  
+};
 
-// Create ReadMe
+//Generate Description
+const generateDescription = (aboutDescription) => {
+  return `
+        ## Description
+        ${aboutDescription}
+    `;
+};
 
+//Generate Installation
+const generateInstallation = (installation) => {
+  return `
+        ## Installation
+        ${installation}
+    `;
+};
+
+//Generate Contributing
+const generateContributing = (contributing, link) => {
+  return `
+        ## Contributing
+        ${contributing.name}
+        ${contributing.link}
+    `;
+};
+
+// Create ReadMe File
 const writeFile = (fileContent) => {
-      fs.writeFile("./ReadMe.md", fileContent, (err) => {
-        if (err) {
-            throw err;
-          return;
-        }
-        });
-    };
+  fs.writeFile("./ReadMe.md", fileContent, (err) => {
+    if (err) {
+      throw err;
+      return;
+    }
+  });
+};
 
 module.exports = {
-    generateREADME,
-    writeFile
-}
+  generateREADME,
+  generateDescription,
+  generateInstallation,
+  generateContributing,
+  writeFile,
+};
