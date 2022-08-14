@@ -37,14 +37,38 @@ const generateInstallation = (installation) => {
     `;
 };
 
+//Generate Usage
+const generateUsage = (usage) => {
+  return `
+        ## Usage
+        ${usage}
+    `;
+}
+
+//Generate Questions
+const generateQuestions = (questions) => {
+  return `
+        ## Questions
+        ${questions}
+    `;
+}
+
+//Generate License
+const generateLicense = (license) => {
+  return `
+        ## License
+        ${license}
+    `;
+}
+
 //Generate Contributing
 const generateContributing = (contributorData) => {
   
-  const { name, link } = contributorData;
+  // const { name, link } = contributorData;
   return `
         ## Contributing
-        ${contributorData(name)}
-        ${contributorData(link)}
+        ${contributorData.name}
+        ${contributorData.link}
     `;
 }
 
@@ -63,5 +87,8 @@ module.exports = {
   generateDescription,
   generateInstallation,
   generateContributing,
-  writeFile,
-};
+  generateLicense,
+  generateQuestions,
+  generateUsage,
+  writeFile
+}
