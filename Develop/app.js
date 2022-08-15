@@ -1,15 +1,13 @@
 const inquirer = require("inquirer");
-const fs = require("fs");
-const {message} = require("statuses");
-  
+const fs = require("fs");  
 
 // inquier to ask/generate  questions
 inquirer.prompt(
-    [
+  [
       {
         type: "input",
         name: "title",
-        message: "Please Enter your titlte (Required)",
+        message: "Please Enter your title",
         // validate property to check if the input is empty
         validate: (value)=>
         {if (value) {return true;}
@@ -19,13 +17,12 @@ inquirer.prompt(
       {
         type: "input",
         name: "description",
-        message: "Please Enter your Description (Required)",
+        message: "Please Enter your description",
         // validate property to check if the input is empty
         validate: (value)=>
         {if (value) {return true;}
         else {return "I need a value to continue";}
         }
-        
       },
       {
         type: "input",
@@ -39,8 +36,8 @@ inquirer.prompt(
       },
       {
         type: "input",
-        name: "usage",
-        message: "How do you use this?",
+        name: "instructions",
+        message: "Instructions to be followed?",
         // validate property to check if the input is empty
         validate: (value)=>
         {if (value) {return true;}
@@ -49,8 +46,8 @@ inquirer.prompt(
       },
       {
         type: "input",
-        name: instructions,
-        message: "Instructions to be followed?",
+        name: "usage",
+        message: "How do you use this?",
         // validate property to check if the input is empty
         validate: (value)=>
         {if (value) {return true;}
@@ -108,7 +105,15 @@ inquirer.prompt(
         else {return "I need a value to continue";}
         }
       },
-      //email address
+      {
+        type: "input",
+        name: "git",
+        message: "What is your GitHub link?",
+        validate: (value)=>
+        {if (value) {return true;}
+        else {return "I need a value to continue";}
+        }
+      },
       {
         type: "input",
         name: "email",
@@ -118,9 +123,80 @@ inquirer.prompt(
         else {return "I need a value to continue";}
         }
       },
+      {
+        type: "input",
+        name: "linkden",
+        message: "What is your linkden address?",
+        validate: (value)=>
+        {if (value) {return true;}
+        else {return "I need a value to continue";}
+        }
+      },
+    ]).then(({
+      title,
+      description,
+      installation,
+      instructions,
+      usage,
+      contributing,
+      license,
+      username,
+      email,
+      git,
+      linkden,
+  }) => {
+    // template to be used
+    const template = ` # ${title}
 
-    ]
+## Description
+${description}
 
-)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [Credits](#credits)
+* [License](#license)
+
+# Installation
+${installation}
+
+# Usage
+${usage}
+
+# Contributing
+${contributing}
+
+### Instructions
+${instructions}
+
+## License
+${license}
+
+# Contact
+GitHub Username: ${username}
+GitHub Link: ${git}
+Linkden: ${linkden}
+
+# Email : 
+${email}`;
+    //function  to create readme using fs
+    createNewFile(title, template);
+  }
+  );
+  // creating the createNewFile function
+  function createNewFile(fileName, data) {
+    //fs
+    fs.writeFile( `./${fileName.toLowerCase().split(" ").join("-")}.md` ,data, (err) => {
+      if (err){
+        console.log(err);
+      }
+      else {
+        console.log("Successfully created a new file");
+      }
+    })
+    }
+
+
+
          
    
