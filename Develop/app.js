@@ -56,8 +56,8 @@ inquirer.prompt(
       },
       {
         type: "input",
-        name: "contributing",
-        message: "Who contributed?",
+        name: "credits",
+        message: "Credit for assisting with project?",
         // validate property to check if the input is empty
         validate: (value)=>
         {if (value) {return true;}
@@ -83,17 +83,6 @@ inquirer.prompt(
         else {return "I need a value to continue";}
         }
         
-      },
-      {
-        type: "confirm",
-        name: "contributing",
-        message: "Would you like to add a Contributor",
-        default: false,
-        validate: (value)=>
-        {if (value) {return true;}
-        else {return "I need a value to continue";}
-        }
-
       },
       //gitHub username
       {
@@ -138,7 +127,7 @@ inquirer.prompt(
       installation,
       instructions,
       usage,
-      contributing,
+      credits,
       license,
       username,
       email,
@@ -163,22 +152,22 @@ ${installation}
 # Usage
 ${usage}
 
-# Contributing
-${contributing}
-
-### Instructions
+# Instructions
 ${instructions}
 
-## License
+# License
 ${license}
+
+# Credits
+${credits}
+
+
 
 # Contact
 GitHub Username: ${username}
 GitHub Link: ${git}
 Linkden: ${linkden}
-
-# Email : 
-${email}`;
+Email: ${email}`;
     //function  to create readme using fs
     createNewFile(title, template);
   }
